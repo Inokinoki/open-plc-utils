@@ -241,7 +241,7 @@ static signed identifier (struct session * session, struct channel * channel)
 
 {
 	memcpy (session->EVSE_MAC, channel->host, sizeof (session->EVSE_MAC));
-	printf("Your MAC Address %02x:%02x:%02x:%02x:%02x:%02x\n", session->EVSE_MAC[0],
+	printf("EVSE MAC Address %02x:%02x:%02x:%02x:%02x:%02x\n", session->EVSE_MAC[0],
 		session->EVSE_MAC[1],
 		session->EVSE_MAC[2],
 		session->EVSE_MAC[3],

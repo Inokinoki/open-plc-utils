@@ -252,6 +252,12 @@ static signed identifier (struct session * session, struct channel * channel)
 	memset (session->RunID, 0, sizeof (session->RunID));
 	memcpy (session->RunID, channel->host, ETHER_ADDR_LEN);
 	memcpy (session->PEV_MAC, channel->host, sizeof (session->PEV_MAC));
+	printf("PEV MAC Address %02x:%02x:%02x:%02x:%02x:%02x\n", session->PEV_MAC[0],
+		session->PEV_MAC[1],
+		session->PEV_MAC[2],
+		session->PEV_MAC[3],
+		session->PEV_MAC[4],
+		session->PEV_MAC[5]);
 	return (0);
 }
 
