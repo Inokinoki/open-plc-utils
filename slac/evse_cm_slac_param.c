@@ -99,7 +99,29 @@ signed evse_cm_slac_param (struct session * session, struct channel * channel, s
 	extern byte const broadcast [ETHER_ADDR_LEN];
 	struct cm_slac_param_request * request = (struct cm_slac_param_request *) (message);
 	struct cm_slac_param_confirm * confirm = (struct cm_slac_param_confirm *) (message);
+#ifdef EMULATE
+	request->APPLICATION_TYPE = 0;
+	request->SECURITY_TYPE = 0;
+
+	// TODO: Replace with real docker container ID
+	request->ethernet.OSA[0] = 0xFF;
+	request->ethernet.OSA[1] = 0xFF;
+	request->ethernet.OSA[2] = 0xFF;
+	request->ethernet.OSA[3] = 0xFF;
+	request->ethernet.OSA[4] = 0xFF;
+	request->ethernet.OSA[5] = 0xFF;
+
+	// TODO: Replace with real docker container ID
+	request->RunID[0] = 0xFF;
+	request->RunID[1] = 0xFF;
+	request->RunID[2] = 0xFF;
+	request->RunID[3] = 0xFF;
+	request->RunID[4] = 0xFF;
+	request->RunID[5] = 0xFF;
+	do
+#else
 	while (readmessage (channel, message, HOMEPLUG_MMV, (CM_SLAC_PARAM | MMTYPE_REQ)) > 0)
+#endif
 	{
 		slac_debug (session, 0, __func__, "<-- CM_SLAC_PARAM.REQ");
 		session->APPLICATION_TYPE = request->APPLICATION_TYPE;
@@ -147,7 +169,11 @@ signed evse_cm_slac_param (struct session * session, struct channel * channel, s
 			return (slac_debug (session, 1, __func__, CHANNEL_CANTSEND));
 		}
 		return (0);
+#ifdef EMULATE
+	} while (0);
+#else
 	}
+#endif
 	return (slac_debug (session, 0, __func__, "<-- CM_SLAC_PARAM.REQ ?"));
 }
 
