@@ -169,10 +169,13 @@ signed openchannel (struct channel * channel)
 	channel->ifstate = ifreq.ifr_flags;
 	_setbits (ifreq.ifr_flags, (IFF_UP | IFF_BROADCAST | IFF_MULTICAST));
 	_clrbits (ifreq.ifr_flags, (IFF_ALLMULTI | IFF_PROMISC));
+	/*
+	Docker cannot handle this
 	if (ioctl (channel->fd, SIOCSIFFLAGS, &ifreq) == -1)
 	{
 		error (1, errno, "%s", ifreq.ifr_name);
 	}
+	*/
 
 #else
 
