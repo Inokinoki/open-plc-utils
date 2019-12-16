@@ -133,6 +133,17 @@ signed evse_cm_mnbc_sound (struct session * session, struct channel * channel, s
 				}
 				sounds++;
 			}
+#if EMULATE
+			slac_debug (session, 0, __func__, "EMULATED Mode, fake data for Sounds (%d)", sounds);
+			slac_debug (session, 0, __func__, "<-- CM_ATTEN_PROFILE.IND (%d)", session->sounds);
+
+			for (session->NumGroups = 0; session->NumGroups < SLAC_GROUPS; session->NumGroups++)
+			{
+				AAG [session->NumGroups] += 32;
+			}
+			session->NumGroups = SLAC_GROUPS;
+			session->sounds++;
+#else
 		}
 		else if (LE16TOH (homeplug->homeplug.MMTYPE) == (CM_ATTEN_PROFILE | MMTYPE_IND))
 		{
@@ -160,6 +171,7 @@ signed evse_cm_mnbc_sound (struct session * session, struct channel * channel, s
 				session->NumGroups = indicate->NumGroups;
 				session->sounds++;
 			}
+#endif
 		}
 		if (gettimeofday (& tc, NULL) == - 1)
 		{
