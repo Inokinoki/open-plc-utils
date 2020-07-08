@@ -149,7 +149,16 @@ signed pev_cm_set_key (struct session * session, struct channel * channel, struc
 	{
 		return (slac_debug (session, 1, __func__, CHANNEL_CANTSEND));
 	}
+#ifdef EMULATE
+	// Debug mode, set all parameters
+	confirm->ethernet.MTYPE = htons(ETH_P_HPAV);
+	confirm->homeplug.MMV = HOMEPLUG_MMV;
+	confirm->homeplug.MMTYPE = HTOLE32(CM_SET_KEY | MMTYPE_CNF);
+	confirm->RESULT = 1;
+	do
+#else
 	while (readpacket (channel, confirm, sizeof (* confirm)) > 0)
+#endif
 	{
 		if (ntohs (confirm->ethernet.MTYPE) != ETH_P_HPAV)
 		{
@@ -189,7 +198,11 @@ signed pev_cm_set_key (struct session * session, struct channel * channel, struc
 #endif
 
 		return (0);
+#if EMULATE
+	} while (0);	// Do only once
+#else
 	}
+#endif
 	return (slac_debug (session, session->exit, __func__, "<-- CM_SET_KEY.CNF ?"));
 }
 

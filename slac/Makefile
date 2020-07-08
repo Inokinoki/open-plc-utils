@@ -11,7 +11,8 @@ include ../make.def
 # symbols;
 # --------------------------------------------------------------------
 
-# CFLAGS+= -DSLAC_DEBUG
+#CFLAGS+= -DSLAC_DEBUG -g
+CFLAGS+= -DEMULATE -g
 LDFLAGS+=
 TRASH=*.o *.obj *.exe t t.* *~ *.[0-9][0-9][0-9] 
 FILES=Makefile *.mak *.sh *.c *.h 

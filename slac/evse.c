@@ -241,6 +241,12 @@ static signed identifier (struct session * session, struct channel * channel)
 
 {
 	memcpy (session->EVSE_MAC, channel->host, sizeof (session->EVSE_MAC));
+	printf("EVSE MAC Address %02x:%02x:%02x:%02x:%02x:%02x\n", session->EVSE_MAC[0],
+		session->EVSE_MAC[1],
+		session->EVSE_MAC[2],
+		session->EVSE_MAC[3],
+		session->EVSE_MAC[4],
+		session->EVSE_MAC[5]);
 	return (0);
 }
 

@@ -113,7 +113,7 @@
 
 #define CHANNEL_ETHNUMBER 2
 #if defined (__linux__)
-#       define CHANNEL_ETHDEVICE "eth1"
+#       define CHANNEL_ETHDEVICE "eth0"	// Use your own network interface
 #elif defined (__APPLE__)
 #       define CHANNEL_ETHDEVICE "en0"
 #       define CHANNEL_BPFDEVICE "/dev/bpf%d"

@@ -99,6 +99,7 @@ signed evse_cm_slac_param (struct session * session, struct channel * channel, s
 	extern byte const broadcast [ETHER_ADDR_LEN];
 	struct cm_slac_param_request * request = (struct cm_slac_param_request *) (message);
 	struct cm_slac_param_confirm * confirm = (struct cm_slac_param_confirm *) (message);
+
 	while (readmessage (channel, message, HOMEPLUG_MMV, (CM_SLAC_PARAM | MMTYPE_REQ)) > 0)
 	{
 		slac_debug (session, 0, __func__, "<-- CM_SLAC_PARAM.REQ");
